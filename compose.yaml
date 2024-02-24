@@ -19,8 +19,8 @@ services:
           path: ./src/public
           target: /var/www/html
         - action: sync
-          path: ./src/include
-          target: /var/www/include
+          path: ./src/includes
+          target: /var/www/includes
   db:
     image: mariadb
     restart: always

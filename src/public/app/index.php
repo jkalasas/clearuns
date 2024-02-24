@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . "/../../include/db/config.php";
-require_once __DIR__ . "/../../include/db/auth.php";
+require_once __DIR__ . "/../../includes/db/config.php";
+require_once __DIR__ . "/../../includes/db/auth.php";
 
 session_start();
 

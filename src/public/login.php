@@ -7,8 +7,8 @@ if (isset($_SESSION["userID"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	require_once __DIR__ . "/../include/db/config.php";
-	require_once __DIR__ . "/../include/db/auth.php";
+	require_once __DIR__ . "/../includes/db/config.php";
+	require_once __DIR__ . "/../includes/db/auth.php";
 
 	$conn = createConnection();
 	$user = authenticateUser($conn, $_POST["email"], $_POST["password"]);
