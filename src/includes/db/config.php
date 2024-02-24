@@ -7,15 +7,9 @@ function createConnection(): PDO
 	$DB_NAME = getenv("DB_NAME");
 	$DB_PASSWORD = getenv("DB_PASSWORD");
 
+	$sql = file_get_contents(__DIR__ . "/scripts/schemas.sql");
 	$conn = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME", $DB_USER, $DB_PASSWORD);
-
-	$conn->exec("
-	CREATE TABLE IF NOT EXISTS users (
-		id INT AUTO_INCREMENT PRIMARY KEY,
-		email VARCHAR(1028) NOT NULL,
-		password VARCHAR(32) NOT NULL
-	)
-	");
+	$conn->exec($sql);
 
 	return $conn;
 }
