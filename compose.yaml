@@ -16,8 +16,11 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./src
+          path: ./src/public
           target: /var/www/html
+        - action: sync
+          path: ./src/include
+          target: /var/www/include
   db:
     image: mariadb
     restart: always
