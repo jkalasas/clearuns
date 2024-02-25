@@ -1,23 +1,14 @@
 <?php
-require_once __DIR__ . "/../../includes/db/config.php";
-require_once __DIR__ . "/../../includes/db/auth.php";
+require_once __DIR__ . "/../../includes/utils/auth.php";
 
 session_start();
 
-if (!isset($_SESSION["userID"])) {
-	header("Location: /login.php");
-	exit();
-}
-
 $conn = createConnection();
-$user = getAuthUser($conn, $_SESSION["userID"]);
-
-if ($user == null) {
-	unset($_SESSION["userID"]);
-	header("Location: /login.php");
-	exit();
-}
+$user = require_authenticated($conn);
 ?>
+
+<!DOCTYPE html>
+<html>
 
 <head>
 	<meta charset="UTF-8" />
@@ -30,3 +21,5 @@ if ($user == null) {
 	<h2>Hello, <?php echo $user->email; ?>!</h2>
 	<a href="/logout.php">Logout</a>
 </body>
+
+</html>

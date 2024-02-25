@@ -65,4 +65,42 @@ class Role
 
 		return $roles;
 	}
+
+	static public function verify_in_user(PDO $conn, int $user_id, RoleType $role): bool
+	{
+		$role_str = roletype_to_str($role);
+		$stmt = $conn->prepare("SELECT COUNT(*) AS 'count' FROM roles WHERE user_id=? AND role=?");
+		$stmt->bindParam(1, $user_id);
+		$stmt->bindParam(2, $role_str);
+		$stmt->execute();
+
+		/** @var int */
+		$count = $stmt->fetch(PDO::FETCH_COLUMN);
+
+		return $count > 0;
+	}
+
+	/**
+	 * Verifies if all roles required exists in the user
+	 * @var PDO $conn Connection to the db
+	 * @var RoleType[] $roles Roles to check in the user
+	 * @return bool True if roles exists in the user, otherwise false
+	 */
+	static public function verify_all_in_user(PDO $conn, int $user_id, array $roles): bool
+	{
+		$stmt = $conn->prepare("SELECT role FROM roles WHERE user_id=?");
+		$stmt->bindParam(1, $user_id);
+		$stmt->execute();
+		$roles_data = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+		foreach ($roles_data as $index => $role_str) {
+			$roles_data[$index] = str_to_roletype($role_str);
+		}
+
+		foreach ($roles as $role) {
+			if (!in_array($role, $roles_data)) return false;
+		}
+
+		return true;
+	}
 }
