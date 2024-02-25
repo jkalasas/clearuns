@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/../../includes/db/config.php";
 require_once __DIR__ . "/../../includes/utils/auth.php";
 
 session_start();
