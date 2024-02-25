@@ -23,25 +23,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+<!DOCTYPE html>
+<html>
+
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Login | Clearuns</title>
 </head>
 
-<?php
-if (isset($_SESSION["loginError"])) {
-?>
-	<h1>Invalid credentials</h1>
-<?php
-	unset($_SESSION["loginError"]);
-}
-?>
+<body>
+	<?php
+	if (isset($_SESSION["loginError"])) {
+	?>
+		<h1>Invalid credentials</h1>
+	<?php
+		unset($_SESSION["loginError"]);
+	}
+	?>
 
-<form action="/login.php" method="POST">
-	<label for="email">Email</label>
-	<input type="email" id="email" name="email" />
-	<label for="password">Password</label>
-	<input type="password" id="password" name="password" />
-	<input type="submit" />
-</form>
+	<form action="/login.php" method="POST">
+		<label for="email">Email</label>
+		<input type="email" id="email" name="email" />
+		<label for="password">Password</label>
+		<input type="password" id="password" name="password" />
+		<input type="submit" />
+	</form>
+</body>
+
+</html>
