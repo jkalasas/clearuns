@@ -11,6 +11,12 @@ if (!isset($_SESSION["userID"])) {
 
 $conn = createConnection();
 $user = getAuthUser($conn, $_SESSION["userID"]);
+
+if ($user == null) {
+	unset($_SESSION["userID"]);
+	header("Location: /login.php");
+	exit();
+}
 ?>
 
 <head>
