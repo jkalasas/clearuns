@@ -1,6 +1,6 @@
 <?php
 
-function createConnection(): PDO
+function create_connection(): PDO
 {
 	$DB_HOST = getenv("DB_HOST");
 	$DB_USER = getenv("DB_USER");

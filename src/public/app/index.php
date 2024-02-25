@@ -4,7 +4,7 @@ require_once __DIR__ . "/../../includes/utils/auth.php";
 
 session_start();
 
-$conn = createConnection();
+$conn = create_connection();
 $user = require_authenticated($conn);
 ?>
 

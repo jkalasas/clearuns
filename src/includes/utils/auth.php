@@ -13,16 +13,16 @@ function require_authenticated(PDO $conn, array $roles = null): User
 {
 	if (!isset($_SESSION)) session_start();
 
-	if (!isset($_SESSION["userID"])) {
+	if (!isset($_SESSION["user_id"])) {
 		header("Location: /login.php");
 		exit();
 	}
 
-	$user = getAuthUser($conn, $_SESSION["userID"]);
+	$user = get_auth_user($conn, $_SESSION["user_id"]);
 
 	if ($user == null) {
 		header("Location: /login.php");
-		unset($_SESSION["userID"]);
+		unset($_SESSION["user_id"]);
 		exit();
 	} else if ($roles != null && !Role::verify_all_in_user($conn, $user->id, $roles)) {
 		header("Location: /app");

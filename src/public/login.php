@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (isset($_SESSION["userID"])) {
+if (isset($_SESSION["user_id"])) {
 	header("Location: /app");
 	exit();
 }
@@ -10,14 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	require_once __DIR__ . "/../includes/db/config.php";
 	require_once __DIR__ . "/../includes/db/auth.php";
 
-	$conn = createConnection();
-	$user = authenticateUser($conn, $_POST["email"], $_POST["password"]);
+	$conn = create_connection();
+	$user = authenticate_user($conn, $_POST["email"], $_POST["password"]);
 
 	if ($user == null) {
-		$_SESSION["loginError"] = "Meowmeow";
+		$_SESSION["login_error"] = "Meowmeow";
 	} else {
-		$_SESSION["userID"] = $user->id;
-		header("Location: /app");
+		$_SESSION["user_id"] = $user->id;
+		header("Location: /choose-role.php");
 		exit();
 	}
 }
@@ -34,11 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 	<?php
-	if (isset($_SESSION["loginError"])) {
+	if (isset($_SESSION["login_error"])) {
 	?>
 		<h1>Invalid credentials</h1>
 	<?php
-		unset($_SESSION["loginError"]);
+		unset($_SESSION["login_error"]);
 	}
 	?>
 
