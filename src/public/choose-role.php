@@ -5,7 +5,7 @@ require_once __DIR__ . "/../includes/utils/auth.php";
 session_start();
 $user = require_authenticated();
 
-$roles = Role::get_user_roles($user->id);
+$roles = Role::getUserRoles($user->id);
 
 if (count($roles) < 1) {
 	unset($_SESSION["user_id"]);

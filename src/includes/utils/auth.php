@@ -24,7 +24,7 @@ function require_authenticated(array $roles = null): User
 		header("Location: /login.php");
 		unset($_SESSION["user_id"]);
 		exit();
-	} else if ($roles != null && !Role::verify_all_in_user($user->id, $roles)) {
+	} else if ($roles != null && !Role::verifyAllInUser($user->id, $roles)) {
 		header("Location: /app");
 		exit();
 	}

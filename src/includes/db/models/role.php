@@ -57,7 +57,7 @@ class Role
 		);
 	}
 
-	static public function get_user_roles(int $user_id)
+	static public function getUserRoles(int $user_id)
 	{
 		global $conn;
 		$stmt = $conn->prepare("SELECT * FROM roles WHERE user_id=?");
@@ -74,7 +74,7 @@ class Role
 		return $roles;
 	}
 
-	static public function verify_in_user(int $user_id, RoleType $role): bool
+	static public function verifyInUser(int $user_id, RoleType $role): bool
 	{
 		global $conn;
 		$role_str = roletype_to_str($role);
@@ -95,7 +95,7 @@ class Role
 	 * @var RoleType[] $roles Roles to check in the user
 	 * @return bool True if roles exists in the user, otherwise false
 	 */
-	static public function verify_all_in_user(int $user_id, array $roles): bool
+	static public function verifyAllInUser(int $user_id, array $roles): bool
 	{
 		global $conn;
 		$stmt = $conn->prepare("SELECT role FROM roles WHERE user_id=?");

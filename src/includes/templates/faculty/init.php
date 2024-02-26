@@ -5,4 +5,4 @@ require_once __DIR__ . "/../../utils/auth.php";
 session_start();
 
 $user = require_authenticated([RoleType::FACULTY]);
-$roles = Role::get_user_roles($user->id);
+$roles = Role::getUserRoles($user->id);
