@@ -8,10 +8,10 @@ if (isset($_SESSION["user_id"])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	require_once __DIR__ . "/../includes/db/config.php";
-	require_once __DIR__ . "/../includes/db/auth.php";
+	require_once __DIR__ . "/../includes/db/models/user.php";
 
 	$conn = create_connection();
-	$user = authenticate_user($conn, $_POST["email"], $_POST["password"]);
+	$user = User::authenticateUser($conn, $_POST["email"], $_POST["password"]);
 
 	if ($user == null) {
 		$_SESSION["login_error"] = "Meowmeow";

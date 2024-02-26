@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../db/models/role.php";
-require_once __DIR__ . "/../../includes/db/auth.php";
 require_once __DIR__ . "/../../includes/db/models/role.php";
+require_once __DIR__ . "/../../includes/db/models/user.php";
 
 /**
  * Requires the user to be authenticated
@@ -18,7 +18,7 @@ function require_authenticated(PDO $conn, array $roles = null): User
 		exit();
 	}
 
-	$user = get_auth_user($conn, $_SESSION["user_id"]);
+	$user = User::getAuthenticatedUser($conn);
 
 	if ($user == null) {
 		header("Location: /login.php");

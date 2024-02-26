@@ -11,6 +11,7 @@ class User
 	public DateTime $created_at;
 	public DateTime $updated_at;
 
+	static private ?User $currentUser = null;
 
 	public function __construct(
 		int $id,
@@ -38,5 +39,57 @@ class User
 		if (gettype($updated_at) == "string")
 			$this->updated_at = new DateTime($updated_at);
 		else $this->updated_at = $updated_at;
+	}
+
+	static private function assocToUser($entry)
+	{
+		return new User(
+			$entry["id"],
+			$entry["email"],
+			$entry["password"],
+			$entry["first_name"],
+			$entry["last_name"],
+			$entry["created_at"],
+			$entry["updated_at"],
+			$entry["middle_initial"],
+			$entry["suffix"],
+		);
+	}
+
+	static public function getUser(PDO $conn, int $id): ?User
+	{
+		$stmt = $conn->prepare("SELECT * FROM users WHERE id=?");
+		$stmt->bindParam(1, $id);
+		$stmt->execute();
+
+		$user_data = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($user_data == null) return null;
+
+		return static::assocToUser($user_data);
+	}
+
+	static public function authenticateUser(PDO $conn, string $email, string $password): ?User
+	{
+		$email = trim($email);
+		$stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
+		$stmt->bindParam(1, $email);
+		$stmt->execute();
+
+		$user_data = $stmt->fetch(PDO::FETCH_ASSOC);
+		if ($user_data == null) return null;
+		else if (!password_verify(trim($password), $user_data["password"])) return null;
+
+		static::$currentUser = static::assocToUser($user_data);
+
+		return static::$currentUser;
+	}
+
+	static public function getAuthenticatedUser(PDO $conn): ?User
+	{
+		if (static::$currentUser) return static::$currentUser;
+		else if (!isset($_SESSION["user_id"])) return null;
+
+		static::$currentUser = static::getUser($conn, $_SESSION["user_id"]);
+		return static::$currentUser;
 	}
 }
