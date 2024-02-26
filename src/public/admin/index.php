@@ -1,9 +1,5 @@
 <?php
-require_once __DIR__ . "/../../includes/db/models/role.php";
-require_once __DIR__ . "/../../includes/utils/auth.php";
-
-$user = require_authenticated([RoleType::FACULTY]);
-$roles = Role::get_user_roles($user->id);
+require_once __DIR__ . "/../../includes/templates/admin/init.php";
 ?>
 
 <!DOCTYPE html>
@@ -17,10 +13,12 @@ $roles = Role::get_user_roles($user->id);
 
 <body>
 	<h1>Hello, <?php echo "$user->last_name, $user->first_name $user->middle_initial" ?>.!</h1>
-	<?php if (count($roles) > 1) { ?>
-		<a href="/choose-role.php">Change Role</a>
-	<?php } ?>
-	<a href="/logout.php">Logout</a>
+	<ul>
+		<?php if (count($roles) > 1) { ?>
+			<li><a href="/choose-role.php">Change Role</a></li>
+		<?php } ?>
+		<li><a href="/logout.php">Logout</a></li>
+	</ul>
 </body>
 
 </html>

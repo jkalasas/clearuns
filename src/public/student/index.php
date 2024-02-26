@@ -1,9 +1,5 @@
 <?php
-require_once __DIR__ . "/../../includes/db/models/role.php";
-require_once __DIR__ . "/../../includes/utils/auth.php";
-
-$user = require_authenticated([RoleType::STUDENT]);
-$roles = Role::get_user_roles($user->id);
+require_once __DIR__ . "/../../includes/templates/student/init.php";
 ?>
 
 <!DOCTYPE html>
