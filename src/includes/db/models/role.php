@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . "/../init.php";
+
 enum RoleType
 {
 	case ADMIN;
@@ -46,8 +48,18 @@ class Role
 		$this->user_id = $user_id;
 	}
 
-	static public function get_user_roles(PDO $conn, int $user_id)
+	static private function assocToRole($data)
 	{
+		return new Role(
+			$data["id"],
+			$data["role"],
+			$data["user_id"],
+		);
+	}
+
+	static public function get_user_roles(int $user_id)
+	{
+		global $conn;
 		$stmt = $conn->prepare("SELECT * FROM roles WHERE user_id=?");
 		$stmt->bindParam(1, $user_id);
 		$stmt->execute();
@@ -56,20 +68,17 @@ class Role
 		$role_count = 0;
 
 		while ($role_data = $stmt->fetch(PDO::FETCH_ASSOC)) {
-			$roles[$role_count++] = new Role(
-				$role_data["id"],
-				$role_data["role"],
-				$role_data["user_id"]
-			);
+			$roles[$role_count++] = static::assocToRole($role_data);
 		}
 
 		return $roles;
 	}
 
-	static public function verify_in_user(PDO $conn, int $user_id, RoleType $role): bool
+	static public function verify_in_user(int $user_id, RoleType $role): bool
 	{
+		global $conn;
 		$role_str = roletype_to_str($role);
-		$stmt = $conn->prepare("SELECT COUNT(*) AS 'count' FROM roles WHERE user_id=? AND role=?");
+		$stmt = $conn->prepare("SELECT COUNT(*) FROM roles WHERE user_id=? AND role=?");
 		$stmt->bindParam(1, $user_id);
 		$stmt->bindParam(2, $role_str);
 		$stmt->execute();
@@ -86,8 +95,9 @@ class Role
 	 * @var RoleType[] $roles Roles to check in the user
 	 * @return bool True if roles exists in the user, otherwise false
 	 */
-	static public function verify_all_in_user(PDO $conn, int $user_id, array $roles): bool
+	static public function verify_all_in_user(int $user_id, array $roles): bool
 	{
+		global $conn;
 		$stmt = $conn->prepare("SELECT role FROM roles WHERE user_id=?");
 		$stmt->bindParam(1, $user_id);
 		$stmt->execute();

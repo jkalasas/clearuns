@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . "/../init.php";
+
 class User
 {
 	public int $id;
@@ -56,8 +58,9 @@ class User
 		);
 	}
 
-	static public function getUser(PDO $conn, int $id): ?User
+	static public function getUser(int $id): ?User
 	{
+		global $conn;
 		$stmt = $conn->prepare("SELECT * FROM users WHERE id=?");
 		$stmt->bindParam(1, $id);
 		$stmt->execute();
@@ -68,8 +71,9 @@ class User
 		return static::assocToUser($user_data);
 	}
 
-	static public function authenticateUser(PDO $conn, string $email, string $password): ?User
+	static public function authenticateUser(string $email, string $password): ?User
 	{
+		global $conn;
 		$email = trim($email);
 		$stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
 		$stmt->bindParam(1, $email);
@@ -84,12 +88,12 @@ class User
 		return static::$currentUser;
 	}
 
-	static public function getAuthenticatedUser(PDO $conn): ?User
+	static public function getAuthenticatedUser(): ?User
 	{
 		if (static::$currentUser) return static::$currentUser;
 		else if (!isset($_SESSION["user_id"])) return null;
 
-		static::$currentUser = static::getUser($conn, $_SESSION["user_id"]);
+		static::$currentUser = static::getUser($_SESSION["user_id"]);
 		return static::$currentUser;
 	}
 }

@@ -1,13 +1,11 @@
 <?php
-require_once __DIR__ . "/../includes/db/config.php";
 require_once __DIR__ . "/../includes/db/models/role.php";
 require_once __DIR__ . "/../includes/utils/auth.php";
 
 session_start();
-$conn = create_connection();
-$user = require_authenticated($conn);
+$user = require_authenticated();
 
-$roles = Role::get_user_roles($conn, $user->id);
+$roles = Role::get_user_roles($user->id);
 
 if (count($roles) < 1) {
 	unset($_SESSION["user_id"]);

@@ -9,7 +9,7 @@ require_once __DIR__ . "/../../includes/db/models/user.php";
  * @var Role[]|null $roles required roles to access the page
  * @return User user instance of currently authenticated user
  */
-function require_authenticated(PDO $conn, array $roles = null): User
+function require_authenticated(array $roles = null): User
 {
 	if (!isset($_SESSION)) session_start();
 
@@ -18,13 +18,13 @@ function require_authenticated(PDO $conn, array $roles = null): User
 		exit();
 	}
 
-	$user = User::getAuthenticatedUser($conn);
+	$user = User::getAuthenticatedUser();
 
 	if ($user == null) {
 		header("Location: /login.php");
 		unset($_SESSION["user_id"]);
 		exit();
-	} else if ($roles != null && !Role::verify_all_in_user($conn, $user->id, $roles)) {
+	} else if ($roles != null && !Role::verify_all_in_user($user->id, $roles)) {
 		header("Location: /app");
 		exit();
 	}
