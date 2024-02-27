@@ -55,6 +55,7 @@ class User
 		global $conn;
 
 		$middle_initial = $middle_initial == "" ? null : $middle_initial;
+		$hashed_password = password_hash($password, PASSWORD_BCRYPT);
 		$suffix = $suffix == "" ? null : $suffix;
 
 		$stmt = $conn->prepare(<<<EOT
@@ -62,7 +63,7 @@ class User
 			VALUES (:email, :password, :first_name, :last_name, :middle_initial, :suffix);
 		EOT);
 		$stmt->bindParam("email", $email);
-		$stmt->bindParam("password", $password);
+		$stmt->bindParam("password", $hashed_password);
 		$stmt->bindParam("first_name", $first_name);
 		$stmt->bindParam("last_name", $last_name);
 		$stmt->bindParam("middle_initial", $middle_initial);
