@@ -57,6 +57,26 @@ class Role
 		);
 	}
 
+	static public function create(int $user_id, RoleType|string $role): Role
+	{
+		global $conn;
+
+		if (gettype($role) == "string") $role = str_to_roletype($role);
+
+		$role_str = roletype_to_str($role);
+
+		$stmt = $conn->prepare("INSERT INTO roles (role,user_id) VALUES (:role,:user_id)");
+		$stmt->execute(["role" => $role_str, "user_id" => $user_id]);
+
+		$role_id = $conn->lastInsertId();
+		$stmt = $conn->prepare("SELECT * FROM roles WHERE id=?");
+		$stmt->execute([$role_id]);
+
+		$role_data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return static::assocToRole($role_data);
+	}
+
 	static public function getUserRoles(int $user_id)
 	{
 		global $conn;
