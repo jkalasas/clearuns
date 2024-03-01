@@ -12,13 +12,8 @@ require_once __DIR__ . "/../../includes/templates/admin/init.php";
 </head>
 
 <body>
+	<?php include __DIR__ . "/../../includes/templates/admin/navbar.php" ?>
 	<h1>Hello, <?php echo "$user->last_name, $user->first_name $user->middle_initial" ?>.!</h1>
-	<ul>
-		<?php if (count($roles) > 1) { ?>
-			<li><a href="/choose-role.php">Change Role</a></li>
-		<?php } ?>
-		<li><a href="/logout.php">Logout</a></li>
-	</ul>
 </body>
 
 </html>
