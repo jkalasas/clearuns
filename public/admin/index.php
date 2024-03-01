@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../../includes/templates/admin/init.php";
+require_once __DIR__ . "/../../src/templates/admin/init.php";
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ require_once __DIR__ . "/../../includes/templates/admin/init.php";
 </head>
 
 <body>
-	<?php include __DIR__ . "/../../includes/templates/admin/navbar.php" ?>
+	<?php include __DIR__ . "/../../src/templates/admin/navbar.php" ?>
 	<h1>Hello, <?php echo "$user->last_name, $user->first_name $user->middle_initial" ?>.!</h1>
 </body>
 

@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . "/../db/models/role.php";
-require_once __DIR__ . "/../../includes/db/models/role.php";
-require_once __DIR__ . "/../../includes/db/models/user.php";
+require_once __DIR__ . "/../db/models/user.php";
 
 /**
  * Requires the user to be authenticated

@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . "/../../../includes/templates/admin/init.php";
-require_once __DIR__ . "/../../../includes/templates/admin/userForm.php";
+require_once __DIR__ . "/../../../src/templates/admin/init.php";
+require_once __DIR__ . "/../../../src/templates/admin/userForm.php";
 
 if (!isset($_SESSION)) session_start();
 
@@ -10,8 +10,8 @@ $lastname = isset($_GET["lastname"]) ? $_GET["lastname"] : "";
 $role = isset($_GET["role"]) ? $_GET["role"] : "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	require_once __DIR__ . "/../../../includes/db/models/role.php";
-	require_once __DIR__ . "/../../../includes/db/models/user.php";
+	require_once __DIR__ . "/../../../src/libs/db/models/role.php";
+	require_once __DIR__ . "/../../../src/libs/db/models/user.php";
 
 	function errorLogin(string $err)
 	{
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-	<?php include __DIR__ . "/../../../includes/templates/admin/navbar.php" ?>
+	<?php include __DIR__ . "/../../../src/templates/admin/navbar.php" ?>
 	<h1>Hello, <?php echo "$user->last_name, $user->first_name $user->middle_initial" ?>.!</h1>
 	<?php if (isset($_SESSION["user-creation-error"])) { ?>
 		<h2><?php echo $_SESSION["user-creation-error"] ?></h2>

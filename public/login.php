@@ -7,7 +7,7 @@ if (isset($_SESSION["user_id"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	require_once __DIR__ . "/../includes/db/models/user.php";
+	require_once __DIR__ . "/../src/libs/db/models/user.php";
 
 	$user = User::authenticateUser($_POST["email"], $_POST["password"]);
 

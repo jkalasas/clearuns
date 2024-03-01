@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../../includes/templates/faculty/init.php";
+require_once __DIR__ . "/../../src/templates/faculty/init.php";
 ?>
 
 <!DOCTYPE html>

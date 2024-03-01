@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . "/../../db/models/role.php";
-require_once __DIR__ . "/../../utils/auth.php";
+require_once __DIR__ . "/../../libs/db/models/role.php";
+require_once __DIR__ . "/../../libs/utils/auth.php";
 
 session_start();
 
