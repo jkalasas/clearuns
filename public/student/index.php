@@ -8,15 +8,15 @@ require_once __DIR__ . "/../../src/templates/student/init.php";
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="/assets/styles/style.css" />
 	<title>Home | Clearuns - Student</title>
 </head>
 
 <body>
-	<h1>Hello, <?php echo "$user->last_name, $user->first_name $user->middle_initial" ?>.!</h1>
-	<?php if (count($roles) > 1) { ?>
-		<a href="/choose-role.php">Change Role</a>
-	<?php } ?>
-	<a href="/logout.php">Logout</a>
+	<?php include "../../src/templates/student/navbar.php" ?>
+	<main>
+		<h1>Hello, <?php echo htmlspecialchars("$user->last_name, $user->first_name $user->middle_initial") ?>.!</h1>
+	</main>
 </body>
 
 </html>

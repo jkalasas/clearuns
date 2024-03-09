@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 require_once __DIR__ . "/../src/templates/utils/PasswordInput.php";
+use Clearuns\Templates\PasswordInput;
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +37,7 @@ require_once __DIR__ . "/../src/templates/utils/PasswordInput.php";
 <body>
 	<form action="/login.php" method="POST" class="login-form">
 		<input type="email" id="email" name="email" placeholder="Email" />
-		<?php createPasswordInput("password", "", "Password") ?>
+		<?php PasswordInput::render() ?>
 		<div class="remember-me-container">
 			<span>
 				<input type="checkbox" name="remember-me" />
@@ -54,6 +55,7 @@ require_once __DIR__ . "/../src/templates/utils/PasswordInput.php";
 		?>
 		<button type="submit" class="login-btn">LOGIN</button>
 	</form>
+	<?php PasswordInput::renderScript() ?>
 </body>
 
 </html>
