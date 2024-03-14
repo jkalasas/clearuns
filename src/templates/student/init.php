@@ -6,3 +6,5 @@ session_start();
 
 $user = require_authenticated([RoleType::STUDENT]);
 $roles = Role::getUserRoles($user->id);
+
+$_SESSION["current_role"] = "STUDENT";
