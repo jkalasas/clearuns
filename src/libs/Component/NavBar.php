@@ -1,6 +1,6 @@
 <?php
 
-namespace Clearuns\Templates;
+namespace Clearuns\Component;
 
 class NavBar
 {

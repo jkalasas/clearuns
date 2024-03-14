@@ -2,6 +2,7 @@
 require __DIR__ . "/../vendor/autoload.php";
 
 use Clearuns\DB\Models\User;
+use Clearuns\Component\Input\PasswordInput;
 
 session_start();
 
@@ -21,10 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		exit();
 	}
 }
-
-require_once __DIR__ . "/../src/templates/utils/PasswordInput.php";
-
-use Clearuns\Templates\PasswordInput;
 ?>
 
 <!DOCTYPE html>

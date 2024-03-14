@@ -1,8 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../utils/NavBar.php";
-
-use Clearuns\Templates\NavBar;
+use Clearuns\Component\NavBar;
 
 $links = array(
 	array("path" => "/admin/", "icon" => "home", "label" => "Home"),
