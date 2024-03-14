@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../src/libs/db/models/role.php";
+require_once __DIR__ . "/../src/libs/db/models/Role.php";
 require_once __DIR__ . "/../src/libs/utils/auth.php";
 
 session_start();

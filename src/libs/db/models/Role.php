@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . "/Base.php";
 require_once __DIR__ . "/../init.php";
 
 enum RoleType
@@ -34,7 +35,7 @@ function roletype_to_str(RoleType $role): ?string
 	}
 }
 
-class Role
+class Role extends BaseModel
 {
 	public int $id;
 	public RoleType $role;
@@ -48,7 +49,7 @@ class Role
 		$this->user_id = $user_id;
 	}
 
-	static private function assocToRole($data)
+	static protected function assocToModel($data)
 	{
 		return new Role(
 			$data["id"],
@@ -74,7 +75,7 @@ class Role
 
 		$role_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		return static::assocToRole($role_data);
+		return static::assocToModel($role_data);
 	}
 
 	static public function getUserRoles(int $user_id)
@@ -88,7 +89,7 @@ class Role
 		$role_count = 0;
 
 		while ($role_data = $stmt->fetch(PDO::FETCH_ASSOC)) {
-			$roles[$role_count++] = static::assocToRole($role_data);
+			$roles[$role_count++] = static::assocToModel($role_data);
 		}
 
 		return $roles;

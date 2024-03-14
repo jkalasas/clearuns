@@ -1,8 +1,9 @@
 <?php
+require_once __DIR__ . "/Base.php";
 require_once __DIR__ . "/../init.php";
-require_once __DIR__ . "/role.php";
+require_once __DIR__ . "/Role.php";
 
-class User
+class User extends BaseModel
 {
 	public int $id;
 	public string $email;
@@ -76,10 +77,10 @@ class User
 
 		$user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		return static::assocToUser($user_data);
+		return static::assocToModel($user_data);
 	}
 
-	static private function assocToUser($entry)
+	static protected function assocToModel($entry)
 	{
 		return new User(
 			$entry["id"],
@@ -104,7 +105,7 @@ class User
 		$user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 		if ($user_data == null) return null;
 
-		return static::assocToUser($user_data);
+		return static::assocToModel($user_data);
 	}
 
 	static public function getUserByEmail(string $email): ?User
@@ -116,7 +117,7 @@ class User
 		$user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 		if ($user_data == null) return null;
 
-		return static::assocToUser($user_data);
+		return static::assocToModel($user_data);
 	}
 
 	static public function authenticateUser(string $email, string $password): ?User
@@ -131,7 +132,7 @@ class User
 		if ($user_data == null) return null;
 		else if (!password_verify(trim($password), $user_data["password"])) return null;
 
-		static::$currentUser = static::assocToUser($user_data);
+		static::$currentUser = static::assocToModel($user_data);
 
 		return static::$currentUser;
 	}
@@ -179,7 +180,7 @@ class User
 		$user_count = 0;
 
 		while ($user_data = $stmt->fetch(PDO::FETCH_ASSOC)) {
-			$users[$user_count++] = static::assocToUser($user_data);
+			$users[$user_count++] = static::assocToModel($user_data);
 		}
 
 		return $users;

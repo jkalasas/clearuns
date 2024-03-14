@@ -10,8 +10,8 @@ $lastname = isset($_GET["lastname"]) ? $_GET["lastname"] : "";
 $role = isset($_GET["role"]) ? $_GET["role"] : "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	require_once __DIR__ . "/../../../src/libs/db/models/role.php";
-	require_once __DIR__ . "/../../../src/libs/db/models/user.php";
+	require_once __DIR__ . "/../../../src/libs/db/models/Role.php";
+	require_once __DIR__ . "/../../../src/libs/db/models/User.php";
 
 	function errorLogin(string $err)
 	{
