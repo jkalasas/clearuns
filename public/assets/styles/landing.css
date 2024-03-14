@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
 * {
   margin: 0;
@@ -6,15 +7,42 @@
   box-sizing: border-box;
 }
 
+.Bpassion-font-style {
+  font-family: "Passion One", sans-serif;
+}
+
+.Rpassion-font-style {
+  font-family: "Passion One", sans-serif;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+
+.Rinter-font-style {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.Binter-font-style {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
 .pages {
   height: 100vh;
-  padding: 20px 60px 0px 60px;
+  padding: 0px 60px;
 }
 
 .pages h1 {
   font-family: "Passion One", sans-serif;
   font-weight: 200;
   font-style: normal;
+  font-size: 2rem;
   color: rgb(0, 0, 0);
   margin: 20px 0px;
 }
@@ -23,25 +51,27 @@
   background-color: #09812a;
   display: flex;
   flex-direction: column;
+  gap: 50px;
 }
 
-.head_nav {
+.head-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 20px;
+  border: 1px solid;
   width: 100%;
 }
 
 .contents_fpage {
+  border: 1px solid;
   display: flex;
   justify-content: space-between;
   color: white;
 }
 
-.left_head .logo {
-  font-family: "Passion One", sans-serif;
+.left-head .logo {
   font-weight: 700;
-  font-style: normal;
   color: white;
   font-size: 50px;
 }
@@ -58,9 +88,6 @@
 }
 
 .contents_fpage .right_section h2 {
-  font-family: "Passion One", sans-serif;
-  font-weight: 700;
-  font-style: normal;
   color: white;
   text-align: end;
   font-size: 50px;
@@ -83,34 +110,15 @@
   font-size: 20px;
 }
 
-@media screen and (max-width: 481px) {
-  .contents_fpage #clearuns-logo {
-    display: none;
-  }
-
-  .contents_fpage .right_section {
-    justify-content: center;
-    align-items: stretch;
-  }
-
-  .contents_fpage .right_section h2 {
-    text-align: center;
-  }
-}
 
 .waves {
-  display: block;
-  position: relative;
-  margin-top: -100px;
-  object-fit: cover;
+  margin-top: -105px;
+  max-width: 100%;
+  overflow: hidden;
+  height: 105px;
+  z-index: -1;
 }
 
-.waves .wave1 {
-  z-index: -1;
-  max-width: 100%;
-  transform: rotate(180deg);
-  object-fit: fill;
-}
 
 #overview {
   margin-top: -20px;
@@ -141,10 +149,10 @@
 .feature_card {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  overflow-y:auto;
+  gap: 10px;
   width: 100%;
   height: 100vh;
-  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -153,6 +161,26 @@
   height: 290px;
   border-radius: 20px;
   background-color: #09812a;
+}
+
+#faq{
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.question-list{
+  display: flex;
+  flex-direction: column;
+}
+
+.q-card{
+  background-color: #3b3b3b;
+  margin: 5px;
+  border-radius: 70px;
+  color: white;
+  padding: 25px;
+  width: 100%;
 }
 
 footer {
@@ -164,4 +192,23 @@ footer {
   font-family: "Passion One", sans-serif;
   font-weight: 200;
   font-style: normal;
+}
+
+@media screen and (max-width: 481px) {
+  .contents_fpage #clearuns-logo {
+    display: none;
+  }
+
+  .contents_fpage .right_section {
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  .contents_fpage .right_section h2 {
+    text-align: center;
+  }
+
+  .feature_card{
+    justify-content: center;
+  }
 }
