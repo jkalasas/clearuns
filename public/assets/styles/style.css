@@ -83,6 +83,55 @@ a {
   }
 }
 
+body#choose-role {
+  background-color: #09813a;
+}
+
+/* Choose Role */
+body#choose-role main {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #09813a;
+  color: white;
+}
+
+ul.role-types {
+  display: grid;
+  align-content: center;
+  grid-template-columns: repeat(2, 1fr);
+  list-style-type: none;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.role-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #3b3b3b;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  transition: background 300ms ease;
+}
+
+.role-item::hover {
+  background-color: #093613;
+}
+
+.role-item .role-icon {
+  font-size: 3rem;
+}
+
+@media screen and (min-width: 481px) {
+  main#choose-role {
+    width: 80vw;
+  }
+}
+
 /* Admin */
 
 /* Components */
@@ -128,6 +177,10 @@ a {
   main {
     margin-bottom: unset;
     margin-top: 3rem;
+  }
+
+  main#choose-role {
+    margin-top: unset;
   }
 
   .navbar {
@@ -191,10 +244,35 @@ button {
 }
 
 /* Utilities */
+
+/** Displays **/
+.hidden {
+  display: none;
+}
+
+/** Fonts **/
 .font-passion-one {
   font-family: "Passion One", sans-serif;
 }
 
-.hidden {
-  display: none;
+/** Positions **/
+.relative {
+  position: relative;
+}
+
+/** Text **/
+
+.text-center {
+  text-align: center;
+}
+
+/** Others **/
+.stretched-link::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  content: "";
 }

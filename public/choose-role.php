@@ -17,6 +17,18 @@ if (count($roles) < 1) {
 	header("Location: /" . strtolower($role_str));
 	exit();
 }
+
+function role_to_icon(RoleType $role)
+{
+	switch ($role) {
+		case RoleType::ADMIN:
+			return "admin_panel_settings";
+		case RoleType::FACULTY:
+			return "badge";
+		default:
+			return "school";
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,18 +37,27 @@ if (count($roles) < 1) {
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="./assets/styles/style.css" />
 	<title>Choose Role | Clearuns</title>
 </head>
 
-<body>
-	<h1>Choose Role</h1>
-	<ul>
-		<?php foreach($roles as $role) { 
-			$role_str = roletype_to_str($role->role);
-		?>
-		<li><a href="/<?php echo strtolower($role_str) ?>"><?php echo $role_str ?></a></li>
-		<?php } ?>
-	</ul>
+<body id="choose-role">
+	<main>
+		<h1 class="font-passion-one text-center" style="font-size: 3rem">CHOOSE <br /> ACCOUNT</h1>
+		<ul class="role-types">
+			<?php foreach ($roles as $role) : ?>
+				<?php $role_str = roletype_to_str($role->role) ?>
+				<li class="role-item font-passion-one relative">
+					<i class="role-icon material-symbols-outlined"><?php echo role_to_icon($role->role) ?></i>
+					<a class="stretched-link" href="/<?php echo strtolower($role_str) ?>"><?php echo $role_str ?></a>
+				</li>
+			<?php endforeach; ?>
+			<li class="role-item font-passion-one relative">
+				<i class="role-icon material-symbols-outlined">logout</i>
+				<a class="stretched-link" href="/logout.php">Logout</a>
+			</li>
+		</ul>
+	</main>
 </body>
 
 </html>
