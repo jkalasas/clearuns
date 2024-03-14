@@ -21,12 +21,12 @@ COPY ./src /var/www/src
 
 
 FROM base as development
-COPY ./tests /var/www/html/tests
+COPY ./tests /var/www/tests
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
-COPY --from=dev-deps app/vendor/ /var/www/html/vendor
+COPY --from=dev-deps app/vendor/ /var/www/vendor
 
 
 FROM base as final
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-COPY --from=prod-deps app/vendor/ /var/www/html/vendor
+COPY --from=prod-deps app/vendor/ /var/www/vendor
 USER www-data

@@ -1,4 +1,8 @@
 <?php
+require __DIR__ . "/../vendor/autoload.php";
+
+use Clearuns\DB\Models\User;
+
 session_start();
 
 if (isset($_SESSION["user_id"])) {
@@ -7,8 +11,6 @@ if (isset($_SESSION["user_id"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	require_once __DIR__ . "/../src/libs/db/models/User.php";
-
 	$user = User::authenticateUser($_POST["email"], $_POST["password"]);
 
 	if ($user == null) {
@@ -21,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 require_once __DIR__ . "/../src/templates/utils/PasswordInput.php";
+
 use Clearuns\Templates\PasswordInput;
 ?>
 

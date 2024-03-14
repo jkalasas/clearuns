@@ -1,5 +1,7 @@
 <?php
-require_once "../../src/libs/db/models/user.php";
+require_once __DIR__ . "/../../vendor/autoload.php";
+
+use Clearuns\DB\Models\User;
 
 session_start();
 

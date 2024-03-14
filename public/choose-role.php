@@ -1,9 +1,12 @@
 <?php
-require_once __DIR__ . "/../src/libs/db/models/Role.php";
-require_once __DIR__ . "/../src/libs/utils/auth.php";
+require __DIR__ . "/../vendor/autoload.php";
+
+use Clearuns\Service\Auth;
+use Clearuns\DB\Models\Role;
+use Clearuns\DB\Models\RoleType;
 
 session_start();
-$user = require_authenticated();
+$user = Auth::requireAuthenticated();
 
 $roles = Role::getUserRoles($user->id);
 
@@ -13,7 +16,7 @@ if (count($roles) < 1) {
 	header("Location: /login.php");
 	exit();
 } else if (count($roles) == 1) {
-	$role_str = roletype_to_str($roles[0]->role);
+	$role_str = Role::roleTypeToStr($roles[0]->role);
 	header("Location: /" . strtolower($role_str));
 	exit();
 }
@@ -46,7 +49,7 @@ function role_to_icon(RoleType $role)
 		<h1 class="font-passion-one text-center" style="font-size: 3rem">CHOOSE <br /> ACCOUNT</h1>
 		<ul class="role-types">
 			<?php foreach ($roles as $role) : ?>
-				<?php $role_str = roletype_to_str($role->role) ?>
+				<?php $role_str = Role::roleTypeToStr($role->role) ?>
 				<li class="role-item font-passion-one relative">
 					<i class="role-icon material-symbols-outlined"><?php echo role_to_icon($role->role) ?></i>
 					<a class="stretched-link" href="/<?php echo strtolower($role_str) ?>"><?php echo $role_str ?></a>

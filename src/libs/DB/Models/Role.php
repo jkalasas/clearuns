@@ -1,39 +1,9 @@
 <?php
-require_once __DIR__ . "/Base.php";
-require_once __DIR__ . "/../init.php";
 
-enum RoleType
-{
-	case ADMIN;
-	case FACULTY;
-	case STUDENT;
-}
+namespace Clearuns\DB\Models;
 
-function str_to_roletype(string $role_str): ?RoleType
-{
-	switch (strtoupper(trim($role_str))) {
-		case 'ADMIN':
-			return RoleType::ADMIN;
-		case 'FACULTY':
-			return RoleType::FACULTY;
-		case 'STUDENT':
-			return RoleType::STUDENT;
-	}
-
-	throw new Exception("Role " . $role_str . " doesn't exist");
-}
-
-function roletype_to_str(RoleType $role): ?string
-{
-	switch ($role) {
-		case RoleType::ADMIN:
-			return 'ADMIN';
-		case RoleType::FACULTY:
-			return 'FACULTY';
-		case RoleType::STUDENT:
-			return 'STUDENT';
-	}
-}
+use Exception, PDO;
+use Clearuns\DB\Database;
 
 class Role extends BaseModel
 {
@@ -44,7 +14,7 @@ class Role extends BaseModel
 	public function __construct(int $id, RoleType|string $role, int $user_id)
 	{
 		$this->id = $id;
-		if (gettype($role) == "string") $this->role = str_to_roletype($role);
+		if (gettype($role) == "string") $this->role = static::strToRoletype($role);
 		else $this->role = $role;
 		$this->user_id = $user_id;
 	}
@@ -62,9 +32,9 @@ class Role extends BaseModel
 	{
 		global $conn;
 
-		if (gettype($role) == "string") $role = str_to_roletype($role);
+		if (gettype($role) == "string") $role = static::strToRoleType($role);
 
-		$role_str = roletype_to_str($role);
+		$role_str = static::roleTypeToStr($role);
 
 		$stmt = $conn->prepare("INSERT INTO roles (role,user_id) VALUES (:role,:user_id)");
 		$stmt->execute(["role" => $role_str, "user_id" => $user_id]);
@@ -78,13 +48,18 @@ class Role extends BaseModel
 		return static::assocToModel($role_data);
 	}
 
+	/**
+	 * @param int $user_id Target user to get the roles from
+	 * @return Role[]
+	 */
 	static public function getUserRoles(int $user_id)
 	{
-		global $conn;
+		$conn = Database::getConnection();
 		$stmt = $conn->prepare("SELECT * FROM roles WHERE user_id=?");
 		$stmt->bindParam(1, $user_id);
 		$stmt->execute();
 
+		/** @var Role[] */
 		$roles = array();
 		$role_count = 0;
 
@@ -97,8 +72,8 @@ class Role extends BaseModel
 
 	static public function verifyInUser(int $user_id, RoleType $role): bool
 	{
-		global $conn;
-		$role_str = roletype_to_str($role);
+		$conn = Database::getConnection();
+		$role_str = static::roleTypeToStr($role);
 		$stmt = $conn->prepare("SELECT COUNT(*) FROM roles WHERE user_id=? AND role=?");
 		$stmt->bindParam(1, $user_id);
 		$stmt->bindParam(2, $role_str);
@@ -118,14 +93,14 @@ class Role extends BaseModel
 	 */
 	static public function verifyAllInUser(int $user_id, array $roles): bool
 	{
-		global $conn;
+		$conn = Database::getConnection();
 		$stmt = $conn->prepare("SELECT role FROM roles WHERE user_id=?");
 		$stmt->bindParam(1, $user_id);
 		$stmt->execute();
 		$roles_data = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
 		foreach ($roles_data as $index => $role_str) {
-			$roles_data[$index] = str_to_roletype($role_str);
+			$roles_data[$index] = static::strToRoleType($role_str);
 		}
 
 		foreach ($roles as $role) {
@@ -133,5 +108,31 @@ class Role extends BaseModel
 		}
 
 		return true;
+	}
+
+	static public function strToRoleType(string $role_str): RoleType
+	{
+		switch (strtoupper(trim($role_str))) {
+			case 'ADMIN':
+				return RoleType::ADMIN;
+			case 'FACULTY':
+				return RoleType::FACULTY;
+			case 'STUDENT':
+				return RoleType::STUDENT;
+		}
+
+		throw new Exception("Role " . $role_str . " doesn't exist");
+	}
+
+	static public function roleTypeToStr(RoleType $role): string
+	{
+		switch ($role) {
+			case RoleType::ADMIN:
+				return 'ADMIN';
+			case RoleType::FACULTY:
+				return 'FACULTY';
+			case RoleType::STUDENT:
+				return 'STUDENT';
+		}
 	}
 }

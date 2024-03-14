@@ -1,10 +1,12 @@
 <?php
-require_once __DIR__ . "/../../libs/db/models/Role.php";
-require_once __DIR__ . "/../../libs/utils/auth.php";
+require __DIR__ . "/../../../vendor/autoload.php";
+
+use Clearuns\DB\Models;
+use Clearuns\Service\Auth;
 
 session_start();
 
-$user = require_authenticated([RoleType::FACULTY]);
-$roles = Role::getUserRoles($user->id);
+$user = Auth::requireAuthenticated([Models\RoleType::FACULTY]);
+$roles = Models\Role::getUserRoles($user->id);
 
 $_SESSION["current_role"] = "FACULTY";

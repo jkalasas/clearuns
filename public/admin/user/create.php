@@ -2,6 +2,8 @@
 require_once __DIR__ . "/../../../src/templates/admin/init.php";
 require_once __DIR__ . "/../../../src/templates/admin/userForm.php";
 
+use Clearuns\DB\Models;
+
 if (!isset($_SESSION)) session_start();
 
 $email = isset($_GET["email"]) ? $_GET["email"] : "";
@@ -10,9 +12,6 @@ $lastname = isset($_GET["lastname"]) ? $_GET["lastname"] : "";
 $role = isset($_GET["role"]) ? $_GET["role"] : "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	require_once __DIR__ . "/../../../src/libs/db/models/Role.php";
-	require_once __DIR__ . "/../../../src/libs/db/models/User.php";
-
 	function errorLogin(string $err)
 	{
 		$email = $_POST["email"];
@@ -34,17 +33,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (!isset($_POST[$key])) errorLogin("Missing or invalid information");
 		}
 
-		$user = User::getUserByEmail($_POST["email"]);
+		$user = Models\User::getUserByEmail($_POST["email"]);
 
 		if ($user != null) {
 			errorLogin("User already exists with that email");
 		}
 
-		$user = User::create($_POST["email"], $_POST["password"], $_POST["firstname"], $_POST["lastname"]);
+		$user = Models\User::create($_POST["email"], $_POST["password"], $_POST["firstname"], $_POST["lastname"]);
 
 		$role = $_POST["role"];
 
-		Role::create($user->id, $role);
+		Models\Role::create($user->id, $role);
 
 		echo "Successfully added $user->id";
 	}

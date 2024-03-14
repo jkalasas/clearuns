@@ -1,7 +1,9 @@
 <?php
-require_once __DIR__ . "/Base.php";
-require_once __DIR__ . "/../init.php";
-require_once __DIR__ . "/Role.php";
+
+namespace Clearuns\DB\Models;
+
+use DateTime, PDO;
+use Clearuns\DB\Database;
 
 class User extends BaseModel
 {
@@ -53,8 +55,7 @@ class User extends BaseModel
 		string $middle_initial = null,
 		string $suffix = null
 	): User {
-		global $conn;
-
+		$conn = Database::getConnection();
 		$middle_initial = $middle_initial == "" ? null : $middle_initial;
 		$hashed_password = password_hash($password, PASSWORD_BCRYPT);
 		$suffix = $suffix == "" ? null : $suffix;
@@ -97,7 +98,7 @@ class User extends BaseModel
 
 	static public function getUser(int $id): ?User
 	{
-		global $conn;
+		$conn = Database::getConnection();
 		$stmt = $conn->prepare("SELECT * FROM users WHERE id=?");
 		$stmt->bindParam(1, $id);
 		$stmt->execute();
@@ -110,7 +111,7 @@ class User extends BaseModel
 
 	static public function getUserByEmail(string $email): ?User
 	{
-		global $conn;
+		$conn = Database::getConnection();
 		$stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
 		$stmt->execute([$email]);
 
@@ -122,7 +123,7 @@ class User extends BaseModel
 
 	static public function authenticateUser(string $email, string $password): ?User
 	{
-		global $conn;
+		$conn = Database::getConnection();
 		$email = trim($email);
 		$stmt = $conn->prepare("SELECT * FROM users WHERE email=?");
 		$stmt->bindParam(1, $email);
@@ -153,7 +154,7 @@ class User extends BaseModel
 	 */
 	static public function usersWithRoles(array $roles): array
 	{
-		global $conn;
+		$conn = Database::getConnection();
 		/** @var ?PDOStatement */
 		$stmt = null;
 
@@ -170,7 +171,7 @@ class User extends BaseModel
 			EOT);
 
 			foreach ($roles as $i => $role) {
-				$role_str = roletype_to_str($role);
+				$role_str = Role::roleTypeToStr($role);
 				$stmt->bindParam($i + 1, $role_str);
 			}
 		}

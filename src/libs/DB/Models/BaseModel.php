@@ -1,5 +1,7 @@
 <?php
 
+namespace Clearuns\DB\Models;
+
 abstract class BaseModel
 {
 	/**
