@@ -24,15 +24,20 @@
   display: flex;
   flex-direction: column;
 }
+
 .head_nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 }
+
 .contents_fpage {
   display: flex;
+  justify-content: space-between;
+  color: white;
 }
+
 .left_head .logo {
   font-family: "Passion One", sans-serif;
   font-weight: 700;
@@ -41,25 +46,17 @@
   font-size: 50px;
 }
 
-/*Left Section FirstPage*/
-.contents_fpage .left_section {
-  width: 50%;
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.contents_fpage #clearuns-logo {
+  width: 30%;
 }
 
-/*Right Section FirstPage*/
 .contents_fpage .right_section {
-  width: 50%;
-  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: end;
-  flex-wrap: wrap;
+  align-items: flex-end;
 }
+
 .contents_fpage .right_section h2 {
   font-family: "Passion One", sans-serif;
   font-weight: 700;
@@ -68,12 +65,15 @@
   text-align: end;
   font-size: 50px;
 }
+
 .contents_fpage .right_section .loginbtn {
   background-color: #3b3b3b;
   border: none;
   border-radius: 12px;
   padding: 10px 40px;
+  text-align: center;
 }
+
 .contents_fpage .right_section a {
   text-decoration: none;
   font-family: "Passion One", sans-serif;
@@ -83,16 +83,33 @@
   font-size: 20px;
 }
 
+@media screen and (max-width: 481px) {
+  .contents_fpage #clearuns-logo {
+    display: none;
+  }
+
+  .contents_fpage .right_section {
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  .contents_fpage .right_section h2 {
+    text-align: center;
+  }
+}
+
 .waves {
   display: block;
   position: relative;
   margin-top: -100px;
   object-fit: cover;
 }
+
 .waves .wave1 {
   z-index: -1;
   max-width: 100%;
-  rotate: 180deg;
+  transform: rotate(180deg);
+  object-fit: fill;
 }
 
 #overview {
@@ -110,6 +127,7 @@
   border-radius: 20px;
   align-items: center;
 }
+
 .overview_box p {
   text-justify: inter-word;
   color: black;
