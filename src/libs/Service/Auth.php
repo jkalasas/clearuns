@@ -2,8 +2,8 @@
 
 namespace Clearuns\Service;
 
-use Clearuns\DB\Models\User;
-use Clearuns\DB\Models\Role;
+use Clearuns\DB\Model\User;
+use Clearuns\DB\Model\Role;
 
 class Auth
 {

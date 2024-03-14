@@ -1,6 +1,6 @@
 <?php
 
-namespace Clearuns\DB\Models;
+namespace Clearuns\DB\Model;
 
 use Exception, PDO;
 use Clearuns\DB\Database;

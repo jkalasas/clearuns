@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../../vendor/autoload.php";
 
-use Clearuns\DB\Models\User;
+use Clearuns\DB\Model\User;
 
 session_start();
 

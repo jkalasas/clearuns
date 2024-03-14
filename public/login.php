@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . "/../vendor/autoload.php";
 
-use Clearuns\DB\Models\User;
+use Clearuns\DB\Model\User;
 use Clearuns\Component\Input\PasswordInput;
 
 session_start();

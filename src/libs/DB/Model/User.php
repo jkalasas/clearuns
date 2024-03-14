@@ -1,6 +1,6 @@
 <?php
 
-namespace Clearuns\DB\Models;
+namespace Clearuns\DB\Model;
 
 use DateTime, PDO;
 use Clearuns\DB\Database;

@@ -2,7 +2,7 @@
 require_once __DIR__ . "/../../../src/templates/admin/init.php";
 require_once __DIR__ . "/../../../src/templates/admin/userForm.php";
 
-use Clearuns\DB\Models;
+use Clearuns\DB\Model;
 
 if (!isset($_SESSION)) session_start();
 
@@ -33,17 +33,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (!isset($_POST[$key])) errorLogin("Missing or invalid information");
 		}
 
-		$user = Models\User::getUserByEmail($_POST["email"]);
+		$user = Model\User::getUserByEmail($_POST["email"]);
 
 		if ($user != null) {
 			errorLogin("User already exists with that email");
 		}
 
-		$user = Models\User::create($_POST["email"], $_POST["password"], $_POST["firstname"], $_POST["lastname"]);
+		$user = Model\User::create($_POST["email"], $_POST["password"], $_POST["firstname"], $_POST["lastname"]);
 
 		$role = $_POST["role"];
 
-		Models\Role::create($user->id, $role);
+		Model\Role::create($user->id, $role);
 
 		echo "Successfully added $user->id";
 	}

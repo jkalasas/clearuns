@@ -1,6 +1,6 @@
 <?php
 
-namespace Clearuns\DB\Models;
+namespace Clearuns\DB\Model;
 
 enum RoleType
 {

@@ -2,8 +2,8 @@
 require __DIR__ . "/../vendor/autoload.php";
 
 use Clearuns\Service\Auth;
-use Clearuns\DB\Models\Role;
-use Clearuns\DB\Models\RoleType;
+use Clearuns\DB\Model\Role;
+use Clearuns\DB\Model\RoleType;
 
 session_start();
 $user = Auth::requireAuthenticated();
