@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__ . "/../../../src/templates/admin/init.php";
-require_once __DIR__ . "/../../../src/templates/admin/userForm.php";
 
 use Clearuns\DB\Model;
+use Clearuns\Component\Form\UserForm;
 
 if (!isset($_SESSION)) session_start();
 
@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		?>
 
 		<?php
-		createUserForm($email, "", $firstname, $lastname, $role, "user-form", "./create.php");
+		UserForm::render($email, "", $firstname, $lastname, $role, "user-form", "./create.php");
 		?>
 	</main>
 </body>
