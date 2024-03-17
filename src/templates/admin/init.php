@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . "/../../../vendor/autoload.php";
 
-use Clearuns\DB\Model;
 use Clearuns\Service\Auth;
+use Clearuns\Service\Role;
+use Clearuns\Service\RoleType;
 
 session_start();
 
-$user = Auth::requireAuthenticated([Model\RoleType::ADMIN]);
-$roles = Model\Role::getUserRoles($user->id);
+$user = Auth::requireAuthenticated([RoleType::ADMIN]);
+$roles = Role::extractRoles($user);
 
 $_SESSION["current_role"] = "ADMIN";
