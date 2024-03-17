@@ -1,10 +1,10 @@
 <?php
 
-namespace Clearuns\DB\Model;
+namespace Clearuns\Service;
 
 enum RoleType
 {
 	case ADMIN;
 	case FACULTY;
 	case STUDENT;
-}
+};

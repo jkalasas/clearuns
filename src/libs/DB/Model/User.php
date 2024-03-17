@@ -14,6 +14,9 @@ class User extends BaseModel
 	public string $last_name;
 	public string|null $middle_initial = null;
 	public string|null $suffix = null;
+	public bool $is_admin = false;
+	public bool $is_faculty = false;
+	public bool $is_student = false;
 	public DateTime $created_at;
 	public DateTime $updated_at;
 
