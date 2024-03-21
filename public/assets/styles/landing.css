@@ -34,10 +34,8 @@
 }
 
 .pages {
-
   padding: 0px 90px;
 }
-
 
 .head-nav {
   display: flex;
@@ -47,14 +45,34 @@
   width: 100vw;
   padding: 30px 90px;
   background-image: linear-gradient(#09812a, #09812b83, #ffffff00);
-
 }
 .left-head .logo {
   font-weight: 700;
   color: white;
   font-size: 50px;
 }
-
+.right_head {
+  display: flex;
+  gap: 20px;
+}
+.right_head .loginbtn {
+  color: #09812a;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 14px 40px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+}
+.contactbtn {
+  color: #ffffff;
+  background-color: #3b3b3b;
+  border-radius: 12px;
+  padding: 14px 40px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+}
 
 #introduction {
   height: 100vh;
@@ -64,10 +82,8 @@
   gap: 50px;
 }
 
-
-
 .contents_fpage {
-  margin-top: 120px;
+  margin-top: 140px;
   display: flex;
   justify-content: space-between;
   color: white;
@@ -85,23 +101,29 @@
   color: white;
   padding: 10px;
   flex-wrap: wrap;
-  font-size:90px;
+  font-size: 80px;
 }
-.contents_fpage .left-section p{
+.contents_fpage .left-section p {
   padding: 10px;
-  font-size: 20px;
+  font-size: 24px;
   margin-top: -10px;
   font-weight: 300;
 }
-.contents_fpage .left-section .loginbtn{
+.contents_fpage .left-section .loginbtn {
+  color: white;
+  background-color: #3b3b3b;
+  border-radius: 12px;
+  padding: 12px 40px;
+  text-decoration: none;
+  text-align: center;
   margin-top: 10px;
   text-align: center;
   height: 50px;
-  width: 100%;
+  width: 90%;
   font-size: 20px;
 }
 
-.contents_fpage .right-section{
+.contents_fpage .right-section {
   display: flex;
   width: 50vw;
   align-items: center;
@@ -110,17 +132,8 @@
 .contents_fpage .right-section #clearuns-logo {
   justify-content: center;
   height: 80%;
+}
 
-}
-.loginbtn {
-  color: white;
-  background-color: #3b3b3b;
-  border-radius: 12px;
-  padding:12px 40px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 15px;
-}
 /*Wave Design*/
 .waves {
   margin-top: -105px;
@@ -145,11 +158,11 @@
   background-color: #e9e9e9c8;
   border-radius: 20px;
 }
-.overview-box .overview-left{
+.overview-box .overview-left {
   width: 40%;
   padding: 90px;
 }
-.overview-box .overview-left h2{
+.overview-box .overview-left h2 {
   font-size: 60px;
 }
 .overview-box .overview-left p {
@@ -158,7 +171,7 @@
   color: black;
   font-weight: 300;
 }
-.overview-box .overview-right{
+.overview-box .overview-right {
   overflow-x: scroll;
   display: flex;
   align-items: center;
@@ -176,48 +189,52 @@
 }
 
 /*Third Page: Users*/
-#users{
+#users {
   height: 80vh;
-  margin-top: 100px;
+  margin-top: 50px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
 }
-#users h2{
+#users h2 {
   font-size: 50px;
 }
-#users .user-box{
+#users .user-box {
   display: flex;
   width: 100%;
   justify-content: space-evenly;
 }
-
-.user-box .user{
+.user-box .user {
   border-radius: 20px;
   background-color: #3b3b3b;
   width: 300px;
   height: 380px;
 }
 
-#faq{
+#faq {
+  height: 90vh;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
 }
 
-.question-list{
+.question-list {
   display: flex;
   flex-direction: column;
 }
-
-.q-card{
+.q-card {
   background-color: #3b3b3b;
   margin: 5px;
   border-radius: 70px;
   color: white;
   padding: 25px;
   width: 100%;
+  cursor: pointer;
+}
+
+#contact-us{
+  height: 100vh;
 }
 
 footer {
@@ -236,7 +253,6 @@ footer {
     display: none;
   }
 
-
   .contents_fpage .left_section {
     justify-content: center;
     align-items: stretch;
@@ -246,8 +262,7 @@ footer {
     text-align: center;
   }
 
-  .feature_card{
+  .feature_card {
     justify-content: center;
   }
 }
-
