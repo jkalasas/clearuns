@@ -34,83 +34,94 @@
 }
 
 .pages {
-  height: 100vh;
-  padding: 0px 60px;
+
+  padding: 0px 90px;
 }
 
-.pages h1 {
-  font-family: "Passion One", sans-serif;
-  font-weight: 200;
-  font-style: normal;
-  font-size: 2rem;
-  color: rgb(0, 0, 0);
-  margin: 20px 0px;
-}
-
-#introduction {
-  background-color: #09812a;
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-}
 
 .head-nav {
   display: flex;
+  position: fixed;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20px;
-  border: 1px solid;
-  width: 100%;
-}
+  width: 100vw;
+  padding: 30px 90px;
+  background-image: linear-gradient(#09812a, #09812b83, #ffffff00);
 
-.contents_fpage {
-  border: 1px solid;
-  display: flex;
-  justify-content: space-between;
-  color: white;
 }
-
 .left-head .logo {
   font-weight: 700;
   color: white;
   font-size: 50px;
 }
 
-.contents_fpage #clearuns-logo {
-  width: 30%;
-}
 
-.contents_fpage .right_section {
+#introduction {
+  height: 100vh;
+  background-color: #09812a;
   display: flex;
   flex-direction: column;
+  gap: 50px;
+}
+
+
+
+.contents_fpage {
+  margin-top: 120px;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+}
+.contents_fpage .left-section {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50vw;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
+  padding-left: 40px;
 }
-
-.contents_fpage .right_section h2 {
+.contents_fpage .left-section h2 {
   color: white;
-  text-align: end;
-  font-size: 50px;
+  padding: 10px;
+  flex-wrap: wrap;
+  font-size:90px;
 }
-
-.contents_fpage .right_section .loginbtn {
-  background-color: #3b3b3b;
-  border: none;
-  border-radius: 12px;
-  padding: 10px 40px;
+.contents_fpage .left-section p{
+  padding: 10px;
+  font-size: 20px;
+  margin-top: -10px;
+  font-weight: 300;
+}
+.contents_fpage .left-section .loginbtn{
+  margin-top: 10px;
   text-align: center;
-}
-
-.contents_fpage .right_section a {
-  text-decoration: none;
-  font-family: "Passion One", sans-serif;
-  font-weight: 200;
-  font-style: normal;
-  color: white;
+  height: 50px;
+  width: 100%;
   font-size: 20px;
 }
 
+.contents_fpage .right-section{
+  display: flex;
+  width: 50vw;
+  align-items: center;
+  justify-content: center;
+}
+.contents_fpage .right-section #clearuns-logo {
+  justify-content: center;
+  height: 80%;
 
+}
+.loginbtn {
+  color: white;
+  background-color: #3b3b3b;
+  border-radius: 12px;
+  padding:12px 40px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+}
+/*Wave Design*/
 .waves {
   margin-top: -105px;
   max-width: 100%;
@@ -119,48 +130,74 @@
   z-index: -1;
 }
 
-
+/*Second Page: Overview*/
 #overview {
-  margin-top: -20px;
+  height: 70vh;
+  margin: 20px 0px;
   display: flex;
   flex-direction: column;
-}
-
-.overview_box {
-  display: flex;
-  width: 100%;
-  height: 50%;
-  background-color: #c6c6c6;
-  padding: 20px;
-  border-radius: 20px;
-  align-items: center;
-}
-
-.overview_box p {
-  text-justify: inter-word;
-  color: black;
-}
-
-#features {
-  display: flex;
-  flex-direction: column;
-}
-
-.feature_card {
-  display: flex;
-  flex-wrap: wrap;
-  overflow-y:auto;
   gap: 10px;
+}
+.overview-box {
+  display: flex;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  background-color: #e9e9e9c8;
+  border-radius: 20px;
+}
+.overview-box .overview-left{
+  width: 40%;
+  padding: 90px;
+}
+.overview-box .overview-left h2{
+  font-size: 60px;
+}
+.overview-box .overview-left p {
+  width: 100%;
+  font-size: 18px;
+  color: black;
+  font-weight: 300;
+}
+.overview-box .overview-right{
+  overflow-x: scroll;
+  display: flex;
   align-items: center;
 }
-
+.feature-card {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
 .cards {
-  width: 190px;
-  height: 290px;
+  width: 380px;
+  height: 250px;
   border-radius: 20px;
   background-color: #09812a;
+}
+
+/*Third Page: Users*/
+#users{
+  height: 80vh;
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+#users h2{
+  font-size: 50px;
+}
+#users .user-box{
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.user-box .user{
+  border-radius: 20px;
+  background-color: #3b3b3b;
+  width: 300px;
+  height: 380px;
 }
 
 #faq{
@@ -199,12 +236,13 @@ footer {
     display: none;
   }
 
-  .contents_fpage .right_section {
+
+  .contents_fpage .left_section {
     justify-content: center;
     align-items: stretch;
   }
 
-  .contents_fpage .right_section h2 {
+  .contents_fpage .left_section h2 {
     text-align: center;
   }
 
@@ -212,3 +250,4 @@ footer {
     justify-content: center;
   }
 }
+
