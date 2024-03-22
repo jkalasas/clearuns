@@ -1,4 +1,4 @@
-:root{
+:root {
   --size: minmax(170px, 200px);
   --border_val: 1px solid #09812a;
   --detail-width: 100%;
@@ -7,6 +7,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 .Bpassion-font-style {
@@ -36,7 +37,7 @@
 }
 
 .pages {
-  padding: 0px 110px;
+  padding: 0px 64px;
 }
 
 .head-nav {
@@ -45,35 +46,36 @@
   align-items: center;
   justify-content: space-between;
   width: 100vw;
-  padding: 30px 90px;
+  padding: 24px 80px;
   background-image: linear-gradient(#09812a, #09812b83, #ffffff00);
 }
-.left-head a{
+.left-head a, span {
   color: white;
-  font-size: 50px;
+  font-size: 3rem;
   text-decoration: none;
+  margin-left: -16px;
 }
 .right_head {
   display: flex;
-  gap: 20px;
+  gap: 24px;
 }
 .right_head .loginbtn {
   color: #09812a;
   background-color: #ffffff;
   border-radius: 12px;
-  padding: 14px 40px;
+  padding: 12px 40px;
   text-align: center;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 1rem;
 }
 .contactbtn {
   color: #ffffff;
   background-color: #3b3b3b;
   border-radius: 12px;
-  padding: 14px 40px;
+  padding: 12px 40px;
   text-align: center;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 1rem;
 }
 
 /*First Page: Introduction*/
@@ -82,59 +84,61 @@
   background-color: #09812a;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 64px;
 }
-.contents_fpage {
-  margin-top: 140px;
-  padding-left: 10px;
+.contents-fpage {
+  margin-top: 144px;
   display: flex;
   justify-content: space-between;
   color: white;
 }
-.contents_fpage .left-section {
+.contents-fpage .left-section {
   display: flex;
   flex-wrap: wrap;
   width: 50vw;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-left: 40px;
+  padding-left: 112px;
 }
-.contents_fpage .left-section h2 {
+.contents-fpage .left-section h2 {
   color: white;
-  padding: 10px;
+  padding: 8px;
   flex-wrap: wrap;
   font-size: 80px;
 }
-.contents_fpage .left-section p {
-  padding: 10px;
+.contents-fpage .left-section p {
+  padding: 8px;
   font-size: 24px;
-  margin-top: -10px;
+  margin-top: -8px;
   font-weight: 300;
 }
-.contents_fpage .left-section .loginbtn {
+.contents-fpage .left-section .loginbtn {
   color: white;
   background-color: #3b3b3b;
   border-radius: 12px;
-  padding: 12px 40px;
+  padding: 12px 44px;
   text-decoration: none;
   text-align: center;
-  margin-top: 10px;
-  text-align: center;
+  margin-top: 16px;
   height: 50px;
-  width: 90%;
+  width: 100%;
   font-size: 20px;
 }
 
-.contents_fpage .right-section {
+.contents-fpage .right-section {
   display: flex;
-  width: 50vw;
+  width: 50%;
   align-items: center;
   justify-content: center;
 }
-.contents_fpage .right-section #clearuns-logo {
-  justify-content: center;
+.contents-fpage .right-section #clearuns-logo {
   height: 80%;
+}
+.contents-fpage #arrow-right {
+  color: #ffffff;
+  font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
+  float: right;
 }
 
 /*Wave Design*/
@@ -143,33 +147,31 @@
   max-width: 100%;
   overflow: hidden;
   height: 105px;
-  z-index: -1;
 }
 
 /*Second Page: Overview*/
 #overview {
   height: 70vh;
-  margin: 20px 0px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 .overview-box {
   display: flex;
+  box-shadow: 15px 20px #1818182f;
   width: 100%;
   height: 100%;
   background-color: #e9e9e9c8;
   border-radius: 20px;
 }
 .overview-box .overview-left {
-  width: 40%;
-  padding: 90px;
+  width: 48%;
+  padding: 96px 96px 96px 112px;
 }
 .overview-box .overview-left h2 {
   font-size: 60px;
 }
 .overview-box .overview-left p {
-  width: 100%;
+  text-align: justify;
   font-size: 18px;
   color: black;
   font-weight: 300;
@@ -181,12 +183,12 @@
 }
 .overview-cards {
   display: flex;
-  gap: 10px;
+  gap: 16px;
   align-items: center;
 }
 .cards {
-  width: 380px;
-  height: 250px;
+  width: 384px;
+  height: 256px;
   border-radius: 20px;
   background-color: #09812a;
 }
@@ -194,7 +196,7 @@
 /*Third Page: Users*/
 #users {
   height: 60vh;
-  margin-top: 150px;
+  margin-top: 152px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -208,74 +210,80 @@
   display: flex;
   width: 100%;
   justify-content: space-evenly;
+  cursor: pointer;
 }
 .user-box .user {
   border-radius: 20px;
   width: 300px;
   height: 380px;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
 }
 
-.user h3{
+.user h3 {
   font-size: 40px;
 }
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 1,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24;
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
   color: #09812a;
 }
-#stud-icon, #adviser-icon, #faculty-icon{
+#stud-icon,
+#adviser-icon,
+#faculty-icon {
   font-size: 100px;
 }
 
 /*Fourth Page: Features*/
-#features{
+#features {
   height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.feature-container{
+.feature-container {
   width: 80vw;
   display: grid;
-  grid-template: 
-  "tl tl tr" var(--size)
-  "ml mr mr" var(--size)
-  "dl dl dr" var(--size)
-  / 1fr 1fr 1fr;
+  grid-template:
+    "tl tl tr" var(--size)
+    "ml mr mr" var(--size)
+    "dl dl dr" var(--size)
+    / 1fr 1fr 1fr;
   grid-gap: 3px;
 }
-.feature-box{
+.feature-box {
   border: var(--border_val);
   border-radius: 12px;
 }
-#feature1{
+#feature1 {
   grid-area: tl;
+  display: flex;
+  justify-content: flex-end;
 }
-#feature2{
+#feature1 h2{
+  align-self: flex-end;
+  font-size: 3rem;
+  padding: 24px;
+}
+#feature2 {
   grid-area: tr;
 }
-#feature3{
+#feature3 {
   grid-area: ml;
 }
-#feature4{
+#feature4 {
   grid-area: mr;
 }
-#feature5{
+#feature5 {
   grid-area: dl;
 }
-#feature6{
+#feature6 {
   grid-area: dr;
 }
 
 /*Fifth Page: Call to Action*/
-#call-card{
+#call-card {
   height: 40vh;
   background-image: url(../img/callbg.svg);
   display: flex;
@@ -284,12 +292,12 @@
   align-items: center;
   justify-content: center;
 }
-#call-card h2{
+#call-card h2 {
   font-size: 40px;
 }
-#call-card a{
+#call-card a {
   text-decoration: none;
-  color:#09812a;
+  color: #09812a;
   padding: 20px;
   border-radius: 12px;
   background-color: #ffffff;
@@ -304,15 +312,15 @@
   flex-direction: column;
   justify-content: center;
 }
-#faqs h2{
+#faqs h2 {
   font-size: 40px;
 }
-.folder-container{
+.folder-container {
   display: flex;
   margin-top: 30px;
 }
 
-.folder-container .folder-bg{
+.folder-container .folder-bg {
   border: 1px solid;
   border-radius: 16px;
   width: 50%;
@@ -322,7 +330,7 @@
 }
 
 .faq-list {
-  margin-top:30px;
+  margin-top: 30px;
   border: 1px solid;
   width: 90%;
   display: flex;
@@ -338,20 +346,20 @@
   width: var(--detail-width);
   cursor: pointer;
 }
-details:nth-child(2){
+details:nth-child(2) {
   width: calc(var(--detail-width) - 5%);
 }
-details:nth-child(3){
+details:nth-child(3) {
   width: calc(var(--detail-width) - 10%);
 }
-details:nth-child(4){
+details:nth-child(4) {
   width: calc(var(--detail-width) - 15%);
 }
-details:nth-child(5){
+details:nth-child(5) {
   width: calc(var(--detail-width) - 20%);
 }
 
-.folder-container .folder-head{
+.folder-container .folder-head {
   aspect-ratio: 1/4;
   height: 200px;
   background-color: #09813a;
@@ -362,8 +370,7 @@ details:nth-child(5){
   margin-top: -10px;
 }
 
-
-#contact-us{
+#contact-us {
   height: 100vh;
 }
 
@@ -373,22 +380,61 @@ footer {
   padding: 20px 60px 0px 60px;
   background-color: #3b3b3b;
   color: white;
-  font-family: "Passion One", sans-serif;
-  font-weight: 200;
-  font-style: normal;
+  padding-left: 112px;
 }
 
 @media screen and (max-width: 481px) {
-  .contents_fpage #clearuns-logo {
+  .pages{
+    padding: 0px 72px;
+  }
+  .head-nav{
+    padding: 24px 40px;
+  }
+  .left-head{
+    display: flex;
+    align-items: center;
+  }
+  .left-head h1{
+    margin-left: -20px ;
+  }
+  .left-head img{
+    display: block;
+  }
+  .left-head a{
+    margin-left: 6px;
+    font-size: 2rem;
+
+  }
+  .left-head span{
     display: none;
   }
-  .contents_fpage .left_section {
-    justify-content: center;
-    align-items: stretch;
+  .right_head{
+    gap: 8px;
+  }
+  .right_head .loginbtn, .contactbtn{
+    padding: 6px 20px;
+    font-size: 13px;
   }
 
-  .contents_fpage .left_section h2 {
+.contents-fpage{
+  margin-top: 94px;
+}
+  .contents-fpage .left-section{
+    width: 100%;
+    padding: 0;
+  }
+  .contents-fpage .left-section h2{
     text-align: center;
+    font-size: 4rem;
+    width: 100%;
+  }
+  .contents-fpage .left-section p{
+    text-align: center;
+    font-size: 1rem;
+    width: 100%;
+  }
+  .contents-fpage .right-section {
+    display: none;
   }
 
   .feature_card {
