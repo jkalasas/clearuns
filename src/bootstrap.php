@@ -11,18 +11,13 @@ $config = ORMSetup::createAttributeMetadataConfiguration(
 	isDevMode: true,
 );
 
-$DB_HOST = getenv("DB_HOST");
-$DB_USER = getenv("DB_USER");
-$DB_NAME = getenv("DB_NAME");
-$DB_PASSWORD = getenv("DB_PASSWORD");
-
-
 $connection = DriverManager::getConnection(array(
 	"driver" => "pdo_mysql",
-	"host" => getenv("DB_HOST"),
-	"user" => getenv("DB_USER"),
-	"password" => getenv("DB_PASSWORD"),
-	"dbname" => "meow",
+	"host" => getenv("DB_HOST") ?: "127.0.0.1",
+	"port" => (int) getenv("DB_PORT") ?: 3306,
+	"user" => getenv("DB_USER") ?: "root",
+	"password" => getenv("DB_PASSWORD") ?: "",
+	"dbname" => getenv("DB_NAME") ?: "meow",
 ));
 
 $entity_manager = new EntityManager($connection, $config);
