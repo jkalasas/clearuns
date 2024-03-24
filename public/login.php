@@ -1,8 +1,9 @@
 <?php
-require_once __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/../src/bootstrap.php";
 
 use Clearuns\DB\Model\User;
 use Clearuns\Component\Input\PasswordInput;
+use Clearuns\Service\Auth;
 
 session_start();
 
@@ -12,12 +13,12 @@ if (isset($_SESSION["user_id"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$user = User::authenticateUser($_POST["email"], $_POST["password"]);
+	$user = Auth::authenticateUser($entity_manager, $_POST["email"], $_POST["password"]);
 
 	if ($user == null) {
 		$_SESSION["login_error"] = "Invalid email or password";
 	} else {
-		$_SESSION["user_id"] = $user->id;
+		$_SESSION["user_id"] = $user->getID();
 		header("Location: /choose-role.php");
 		exit();
 	}
