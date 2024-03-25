@@ -18,6 +18,7 @@ FROM php:8.2-apache as base
 RUN docker-php-ext-install pdo pdo_mysql
 COPY ./public /var/www/html
 COPY ./src /var/www/src
+COPY ./entrypoint.sh /entrypoint.sh
 
 
 FROM base as development

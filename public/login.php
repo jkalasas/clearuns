@@ -1,7 +1,6 @@
 <?php
-require_once __DIR__ . "/../src/bootstrap.php";
+require_once __DIR__ . "/../src/templates/init.php";
 
-use Clearuns\DB\Model\User;
 use Clearuns\Component\Input\PasswordInput;
 use Clearuns\Service\Auth;
 

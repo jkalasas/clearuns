@@ -1,32 +1,36 @@
 <?php
-require __DIR__ . "/../vendor/autoload.php";
+require __DIR__ . "/../src/templates/init.php";
 
 use Clearuns\Service\Auth;
-use Clearuns\DB\Model\Role;
-use Clearuns\DB\Model\RoleType;
+use Clearuns\Service\Role;
+use Clearuns\Service\RoleType;
 
 session_start();
-$user = Auth::requireAuthenticated();
+$user = Auth::requireAuthenticated($entity_manager);
 
-$roles = Role::getUserRoles($user->id);
+$roles = $user->getRoles();
 
-if (count($roles) < 1) {
+/** @var array<string, bool> */
+$active_roles = array_filter($roles, fn (bool $active) => $active);
+
+if (count($active_roles) < 1) {
 	unset($_SESSION["user_id"]);
 	$_SESSION["login_error"] = "User should have at least one role";
 	header("Location: /login.php");
 	exit();
-} else if (count($roles) == 1) {
-	$role_str = Role::roleTypeToStr($roles[0]->role);
-	header("Location: /" . strtolower($role_str));
+} else if (count($active_roles) == 1) {
+	/** @var string */
+	$active_role = array_keys($active_roles)[0];
+	header("Location: /" . strtolower($active_role));
 	exit();
 }
 
-function role_to_icon(RoleType $role)
+function role_to_icon(string $role)
 {
 	switch ($role) {
-		case RoleType::ADMIN:
+		case "ADMIN":
 			return "admin_panel_settings";
-		case RoleType::FACULTY:
+		case "FACULTY":
 			return "badge";
 		default:
 			return "school";
@@ -48,11 +52,10 @@ function role_to_icon(RoleType $role)
 	<main>
 		<h1 class="font-passion-one text-center" style="font-size: 3rem">CHOOSE <br /> ACCOUNT</h1>
 		<ul class="role-types">
-			<?php foreach ($roles as $role) : ?>
-				<?php $role_str = Role::roleTypeToStr($role->role) ?>
+			<?php foreach ($active_roles as $role => $active) : ?>
 				<li class="role-item font-passion-one relative">
-					<i class="role-icon material-symbols-outlined"><?php echo role_to_icon($role->role) ?></i>
-					<a class="stretched-link" href="/<?php echo strtolower($role_str) ?>"><?php echo $role_str ?></a>
+					<i class="role-icon material-symbols-outlined"><?php echo role_to_icon($role) ?></i>
+					<a class="stretched-link" href="/<?php echo strtolower($role) ?>"><?php echo $role_str ?></a>
 				</li>
 			<?php endforeach; ?>
 			<li class="role-item font-passion-one relative">

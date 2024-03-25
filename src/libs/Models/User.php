@@ -42,20 +42,95 @@ class User
 	#[ORM\Column(type: "boolean", options: ["default" => false])]
 	private bool $is_student = false;
 
-	#[ORM\Column(type: "datetime", options: ["default" => "CURRENT_TIMESTAMP", "on update" => "CURRENT_TIMESTAMP"])]
-	private \DateTime $created_at;
+	#[ORM\Column(type: "datetime", nullable: true, options: ["default" => "CURRENT_TIMESTAMP", "on update" => "CURRENT_TIMESTAMP"])]
+	private \DateTime|null $created_at = null;
 
-	#[ORM\Column(type: "datetime", options: ["default" => "CURRENT_TIMESTAMP", "on update" => "CURRENT_TIMESTAMP"])]
-	private \DateTime $updated_at;
+	#[ORM\Column(type: "datetime", nullable: true, options: ["default" => "CURRENT_TIMESTAMP", "on update" => "CURRENT_TIMESTAMP"])]
+	private \DateTime|null $updated_at = null;
 
 	public function getID(): int
 	{
 		return $this->id;
 	}
 
-	public function authenticate(string $password, callable $checkHash): bool
+	public function getEmail()
 	{
-		return $checkHash($password, $this->$password);
+		return $this->email;
+	}
+
+	public function getFirstName()
+	{
+		return $this->first_name;
+	}
+
+	public function getLastName()
+	{
+		return $this->last_name;
+	}
+
+	public function getMiddleInitial()
+	{
+		return $this->middle_initial;
+	}
+
+	public function getSuffix()
+	{
+		return $this->suffix;
+	}
+
+	public function getTimeCreated()
+	{
+		return $this->created_at;
+	}
+
+	public function getLastUpdated()
+	{
+		return $this->updated_at;
+	}
+
+	public function setEmail(string $email)
+	{
+		// if (filter_var($email, FILTER_VALIDATE_EMAIL))
+		// 	throw new \InvalidArgumentException("'" . $email . "' is an invalid email.");
+
+		$this->email = $email;
+	}
+
+	public function setFirstName(string $first_name)
+	{
+		$this->first_name = $first_name;
+	}
+
+	public function setLastName(string $last_name)
+	{
+		$this->last_name = $last_name;
+	}
+
+	public function setMiddleInitial(string|null $middle_initial)
+	{
+		$this->middle_initial = $middle_initial;
+	}
+
+	public function setSuffix(string|null $suffix)
+	{
+		$this->suffix = $suffix;
+	}
+
+	public function setPassword(string $password)
+	{
+		$this->password = password_hash($password, PASSWORD_BCRYPT);
+	}
+
+	public function setRoles(bool $admin = null, bool $faculty = false, bool $student = false)
+	{
+		if (isset($admin)) $this->is_admin = $admin;
+		if (isset($faculty)) $this->is_faculty = $faculty;
+		if (isset($student)) $this->is_student = $student;
+	}
+
+	public function authenticate(string $password): bool
+	{
+		return password_verify($password, $this->password);
 	}
 
 	/**
@@ -64,9 +139,24 @@ class User
 	public function getRoles()
 	{
 		return array(
-			RoleType::ADMIN => $this->is_admin,
-			RoleType::FACULTY => $this->is_faculty,
-			RoleType::STUDENT => $this->is_student
+			"ADMIN" => $this->is_admin,
+			"FACULTY" => $this->is_faculty,
+			"STUDENT" => $this->is_student
 		);
+	}
+
+	public static function getByEmail(EntityManager $em, string $email): ?User
+	{
+		$qb = $em->createQueryBuilder()
+			->select("u")
+			->from("Clearuns\Models\User", "u")
+			->where("u.email = :email")
+			->setParameter("email", $email);
+
+		try {
+			return $qb->getQuery()->getSingleResult();
+		} catch (\Doctrine\ORM\NoResultException) {
+			return null;
+		}
 	}
 }

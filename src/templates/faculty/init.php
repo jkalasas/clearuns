@@ -1,12 +1,11 @@
 <?php
-require_once __DIR__ . "/../../../vendor/autoload.php";
+require_once __DIR__ . "/../../bootstrap.php";
 
-use Clearuns\DB\Model;
 use Clearuns\Service\Auth;
 
 session_start();
 
-$user = Auth::requireAuthenticated([Model\RoleType::FACULTY]);
-$roles = Model\Role::getUserRoles($user->id);
+$user = Auth::requireAuthenticated($entity_manager, ["FACULTY"]);
+$roles = $user->getRoles();
 
 $_SESSION["current_role"] = "FACULTY";

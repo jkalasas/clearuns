@@ -1,13 +1,11 @@
 <?php
-require_once __DIR__ . "/../../../vendor/autoload.php";
+require_once __DIR__ . "/../../bootstrap.php";
 
 use Clearuns\Service\Auth;
-use Clearuns\Service\Role;
-use Clearuns\Service\RoleType;
 
 session_start();
 
-$user = Auth::requireAuthenticated([RoleType::ADMIN]);
-$roles = Role::extractRoles($user);
+$user = Auth::requireAuthenticated($entity_manager, ["ADMIN"]);
+$roles = $user->getRoles();
 
 $_SESSION["current_role"] = "ADMIN";

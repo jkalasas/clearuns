@@ -20,8 +20,6 @@ class Auth
 
 	public static function authenticateUser(EntityManager $em, string $email, string $password): ?User
 	{
-		static $hashAlgorithm = fn (string $password, string $hashed_password) => password_verify($password, $hashed_password);
-
 		if (!isset($_SESSION)) session_start();
 
 		$qb = $em->createQueryBuilder()
@@ -39,7 +37,7 @@ class Auth
 			return null;
 		}
 
-		if (!$user->authenticate($password, $hashAlgorithm)) return null;
+		if (!$user->authenticate($password)) return null;
 
 		return $user;
 	}
@@ -52,7 +50,7 @@ class Auth
 
 		$id = $_SESSION[static::SESSION_USER_ID_NAME];
 
-		static::$current_user = $em->find("User", $id);
+		static::$current_user = $em->find("Clearuns\Models\User", $id);
 		return static::$current_user;
 	}
 

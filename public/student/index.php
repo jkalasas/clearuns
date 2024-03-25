@@ -1,5 +1,9 @@
 <?php
 require_once __DIR__ . "/../../src/templates/student/init.php";
+
+$first_name = $user->getFirstName();
+$last_name = $user->getLastName();
+$middle_initial = $user->getMiddleInitial();
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +19,7 @@ require_once __DIR__ . "/../../src/templates/student/init.php";
 <body>
 	<?php include "../../src/templates/student/navbar.php" ?>
 	<main>
-		<h1>Hello, <?php echo htmlspecialchars("$user->last_name, $user->first_name $user->middle_initial") ?>.!</h1>
+		<h1>Hello, <?php echo htmlspecialchars("$last_name, $first_name $middle_initial") ?>.!</h1>
 	</main>
 </body>
 

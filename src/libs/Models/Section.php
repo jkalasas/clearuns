@@ -32,10 +32,6 @@ class Section
 	#[ORM\JoinColumn(name: "adviser_id", referencedColumnName: "user_id")]
 	private FacultyProfile $adviser;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="Course", inversedBy="sections")
-	 * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
-	 */
 	#[ORM\ManyToOne(targetEntity: "Course", inversedBy: "sections")]
 	#[ORM\JoinColumn(name: "course_id", referencedColumnName: "id")]
 	private FacultyProfile $course;
@@ -43,4 +39,13 @@ class Section
 	#[ORM\ManyToOne(targetEntity: "SchoolYear")]
 	#[ORM\JoinColumn(name: "school_year_id", referencedColumnName: "id")]
 	private SchoolYear $school_year;
+
+	public function setSemester(string $semester)
+	{
+		static $SEMESTER_VALUES = ["FIRST", "SECOND", "SUMMER"];
+		if (!in_array($semester, $SEMESTER_VALUES)) {
+			throw new \InvalidArgumentException("'" . $semester . "' is not a valid semester value");
+		}
+		$this->semester = $semester;
+	}
 }

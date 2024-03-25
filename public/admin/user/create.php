@@ -1,7 +1,8 @@
 <?php
+
 require_once __DIR__ . "/../../../src/templates/admin/init.php";
 
-use Clearuns\DB\Model;
+use Clearuns\Models\User;
 use Clearuns\Component\Form\UserForm;
 
 if (!isset($_SESSION)) session_start();
@@ -26,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	function createUser()
 	{
+		global $entity_manager;
 
 		$required_data = ["email", "password", "firstname", "lastname", "role"];
 
@@ -33,19 +35,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (!isset($_POST[$key])) errorLogin("Missing or invalid information");
 		}
 
-		$user = Model\User::getUserByEmail($_POST["email"]);
+		$user = User::getByEmail($entity_manager, $_POST["email"]);
 
 		if ($user != null) {
 			errorLogin("User already exists with that email");
 		}
 
-		$user = Model\User::create($_POST["email"], $_POST["password"], $_POST["firstname"], $_POST["lastname"]);
-
 		$role = $_POST["role"];
 
-		Model\Role::create($user->id, $role);
+		$user = new User();
+		$user->setEmail($_POST["email"]);
+		$user->setPassword($_POST["password"]);
+		$user->setFirstName($_POST["firstname"]);
+		$user->setLastName($_POST["lastname"]);
+		$user->setRoles(
+			$role === "ADMIN",
+			$role === "FACULTY",
+			$role === "STUDENT",
+		);
 
-		echo "Successfully added $user->id";
+		$entity_manager->persist($user);
+		$entity_manager->flush();
+
+		$id = $user->getID();
+
+		echo "Successfully added $id";
 	}
 
 	createUser();
@@ -67,7 +81,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 	<?php include __DIR__ . "/../../../src/templates/admin/navbar.php" ?>
 	<main>
-		<h1>Hello, <?php echo "$user->last_name, $user->first_name $user->middle_initial" ?>.!</h1>
 		<?php if (isset($_SESSION["user-creation-error"])) { ?>
 			<h2><?php echo $_SESSION["user-creation-error"] ?></h2>
 		<?php
