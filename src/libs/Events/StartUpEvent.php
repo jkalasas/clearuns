@@ -27,29 +27,28 @@ class StartUpEvent
 			->where("u.email = :email")
 			->setParameter("email", $email);
 
-		$user = null;
+		$user = User::getByEmail($em, $email);
 
-		try {
-			/** @var User */
-			$user = $qb->getQuery()->getSingleResult();
+		if ($user !== null) {
 			$roles = $user->getRoles();
 
 			if (!$roles["ADMIN"]) {
 				$user->setRoles(true);
 				$em->flush();
 			}
-		} catch (NoResultException) {
-			$user = new User();
-			$user->setEmail($email);
-			$user->setPassword(getenv("CLEARUNS_ADMIN_PASSWORD") ?: "admin");
-			$user->setName(
-				getenv("CLEARUNS_ADMIN_FIRST_NAME") ?: "Admin",
-				getenv("CLEARUNS_ADMIN_LAST_NAME") ?: "Admin",
-			);
-			$user->setRoles(true);
-			$em->persist($user);
-			$em->flush();
+
+			return;
 		}
+
+		$user = new User();
+
+		$user->setEmail($email);
+		$user->setPassword(getenv("CLEARUNS_ADMIN_PASSWORD") ?: "admin");
+		$user->setFirstName(getenv("CLEARUNS_ADMIN_FIRST_NAME") ?: "Admin");
+		$user->setLastName(getenv("CLEARUNS_ADMIN_LAST_NAME") ?: "Admin");
+		$user->setRoles(true);
+		$em->persist($user);
+		$em->flush();
 	}
 
 	public static function start(EntityManager $em)
