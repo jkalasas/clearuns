@@ -145,11 +145,16 @@ class User
 		);
 	}
 
+	public static function getByID(EntityManager $em, int $id): ?User
+	{
+		return $em->find(User::class, $id);
+	}
+
 	public static function getByEmail(EntityManager $em, string $email): ?User
 	{
 		$qb = $em->createQueryBuilder()
 			->select("u")
-			->from("Clearuns\Models\User", "u")
+			->from(User::class, "u")
 			->where("u.email = :email")
 			->setParameter("email", $email);
 

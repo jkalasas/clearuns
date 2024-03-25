@@ -14,7 +14,7 @@ if (isset($_SESSION["user_id"])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$user = Auth::authenticateUser($entity_manager, $_POST["email"], $_POST["password"]);
 
-	if ($user == null) {
+	if ($user === null) {
 		$_SESSION["login_error"] = "Invalid email or password";
 	} else {
 		$_SESSION["user_id"] = $user->getID();

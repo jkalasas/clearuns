@@ -4,7 +4,6 @@ namespace Clearuns\Service;
 
 use Clearuns\Models\User;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\NoResultException;
 
 class Auth
 {
@@ -22,22 +21,10 @@ class Auth
 	{
 		if (!isset($_SESSION)) session_start();
 
-		$qb = $em->createQueryBuilder()
-			->select("u")
-			->from("Clearuns\Models\User", "u")
-			->where("u.email = :email")
-			->setParameter("email", $email);
+		$user = User::getByEmail($em, $email);
 
-		$user = null;
-
-		try {
-			/** @var User */
-			$user = $qb->getQuery()->getSingleResult();
-		} catch (NoResultException) {
+		if ($user === null || !$user->authenticate($password))
 			return null;
-		}
-
-		if (!$user->authenticate($password)) return null;
 
 		return $user;
 	}
@@ -50,7 +37,7 @@ class Auth
 
 		$id = $_SESSION[static::SESSION_USER_ID_NAME];
 
-		static::$current_user = $em->find("Clearuns\Models\User", $id);
+		static::$current_user = User::getByID($em, $id);
 		return static::$current_user;
 	}
 
